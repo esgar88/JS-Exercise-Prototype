@@ -70,7 +70,17 @@ Person.prototype.toString = function () {
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
 
-function Car() {}
+function Car(model, milesPerGallon) {
+	this.model = model;
+	this.milesPerGallon = milesPerGallon;
+	this.tank = 0;
+	this.odometer = 0;
+}
+
+Car.prototype.fill = function (gallons) {
+	this.tank = this.tank + gallons;
+};
+
 /*
     TASK 3
       - Write a Baby constructor subclassing Person.
@@ -78,15 +88,25 @@ function Car() {}
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
-function Baby() {}
+function Baby(name, age, favoriteToy) {
+	Person.call(this, name, age);
+	this.favoriteToy = favoriteToy;
+}
 
+Baby.prototype = Object.create(Person.prototype);
+
+const babyName = new Baby("jesse", "5", "car");
+
+Baby.prototype.play = function () {
+	return `playing with ${this.favoriteToy}`;
+};
 /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. Global binding- When this is in the global scope, the value of this to be replaced, will be in the window/console 
+    2. Implicit binding-When you bind an object such as obj.property. The the object is the first word and the property (key) would be the second 
+    3. New binding-When you create a bind within a constructor function, used to be pulled out for a specific object.
+    4. Explicting binding-It kind of redfines the an existing bind already. You can override another object with something else!
   */
 
 ///////// END OF CHALLENGE /////////
